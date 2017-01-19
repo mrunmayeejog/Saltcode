@@ -1,0 +1,23 @@
+tcpstats            readbufflow:GAUGE:0:U, writebufflow:GAUGE:0:U, readbuffmedium:GAUGE:0:U, writebuffmedium:GAUGE:0:U, readbuffhigh:GAUGE:0:U, writebuffhigh:GAUGE:0:U, retransmit:GAUGE:0:U, reset_sent:GAUGE:0:U, reset_recv:GAUGE:0:U
+nicstats               mtu:GAUGE:U:U, rx_pkts:GAUGE:U:U, tx_pkts:GAUGE:U:U, rx_drop:GAUGE:U:U, tx_drop:GAUGE:U:U, Updown:GAUGE:0:U, rx_bytes:GAUGE:0:U, tx_bytes:GAUGE:0:U
+nic_rate    rx_rate:counter:0:U, tx_rate:counter:0:U
+nic_agg_rate rx_rate_agg:absolute:0:U, tx_rate_agg:absolute:0:U
+nicstataggregate          rx_pkts:GAUGE:U:U, tx_pkts:GAUGE:U:U, rx_drop:GAUGE:U:U, tx_drop:GAUGE:U:U
+ramusage             ram_total:GAUGE:0:U, ram_percent:GAUGE:0:U
+cpustats            total_physical_cpus:GAUGE:U:U, total_cores:GAUGE:U:U, total_logical_cpus:GAUGE:U:U, hyperthreading:GAUGE:U:U
+avg_request_queue           value:GAUGE:0:U
+avg_request_size            value:GAUGE:0:U
+avg_service_time            value:GAUGE:0:U
+avg_wait_time               value:GAUGE:0:U
+blocks                      value:GAUGE:0:U
+blocks_per_second           value:GAUGE:0:U
+bytes_per_second            value:GAUGE:0:U
+transfers_per_second        value:GAUGE:0:U
+per_second                  value:GAUGE:0:U
+requests_merged_per_second  value:GAUGE:0:U
+sectors_per_second          value:GAUGE:0:U
+diskusage    size:GAUGE:0:U   usage:GAUGE:0:U
+disk_stat_rate   read_iops:counter:0:U, write_iops:counter:0:U, read_rate:counter:0:U, write_rate:counter:0:U
+disk_stat_counter read_bytes:GAUGE:0:U, write_bytes:GAUGE:0:U
+disk_iostat       read_iops:GAUGE:0:U, write_iops:GAUGE:0:U, read_throughput:GAUGE:0:U, write_throughput:GAUGE:0:U, read_bytes:GAUGE:0:U, write_bytes:GAUGE:0:U
+

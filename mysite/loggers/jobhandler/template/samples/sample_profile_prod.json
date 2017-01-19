@@ -1,0 +1,151 @@
+{
+  "name": "Hadoop_Cluster01",
+  "tags": [],
+  "poller": {
+    "targets": [
+      {
+        "name": "cluster_writer",
+        "plugin_file": "sample_es_writer",
+        "mode": "frill",
+        "meta": {
+          "host": "192.168.100.111",
+          "port": "9200",
+          "index": "mapr_cluster",
+          "ds_type": "mapr_cluster_poll"
+        }
+      },
+      {
+        "name": "job_writer",
+        "plugin_file": "sample_es_writer",
+        "mode": "frill",
+        "meta": {
+          "host": "192.168.100.111",
+          "port": "9200",
+          "index": "mapr_job",
+          "ds_type": "mapr_job_poll"
+        }
+      }
+    ],
+    "plugins": [
+      {
+        "name": "mapr_cluster",
+        "plugin_file": "hadoop_cluster_poller",
+        "mode": "frill",
+        "targets": [
+          "cluster_writer"
+        ],
+        "interval": 10,
+        "tags": [],
+        "enable": true,
+        "meta": {
+          "cluster_ip": "192.168.100.205",
+          "username": "mapr",
+          "password": "mapr",
+          "port": 8443
+        }
+      },
+      {
+        "name": "mapr_job",
+        "plugin_file": "hadoop_job_poller",
+        "mode": "frill",
+        "targets": [
+          "job_writer"
+        ],
+        "interval": 10,
+        "tags": [],
+        "enable": true,
+        "meta": {
+          "resource_manager_address": "192.168.100.205",
+          "port": 8088,
+          "application_names": []
+        }
+      }
+    ]
+  },
+  "sub_template": [
+    {
+      "name": "ALL NODES",
+      "node_list": [
+        "node114",
+        "node115",
+        "node116"
+      ],
+      "collectors": {
+        "enabled": true,
+        "interval": "30",
+        "plugins": [
+          {
+            "name": "linux_static",
+            "enabled": true,
+            "interval": "30",
+            "tags": [
+              "hello-within"
+            ],
+            "targets": [
+              "elasticsearch"
+            ]
+          },
+          {
+            "name": "linux_dynamic",
+            "enabled": true,
+            "interval": "15",
+            "targets": [
+              "elasticsearch"
+            ]
+          }
+        ],
+        "targets": [
+          {
+            "name": "elasticsearch",
+            "type": "elasticsearch",
+            "host": "192.168.100.111",
+            "port": "9200",
+            "index": "collector"
+          }
+        ]
+      },
+      "loggers": {
+        "enabled": false,
+        "interval": "30",
+        "plugins": [
+          {
+            "type": "yarn_node_manager",
+            "tag": "node_mgr",
+            "filter": {
+              "level": [
+                "INFO",
+                "WARNING"
+              ]
+            }
+          },
+          {
+            "type": "yarn_resource_manager",
+            "tag": "reso_mgr",
+            "filter": {
+              "level": [
+                "ERROR"
+              ]
+            }
+          },
+          {
+            "type": "syslog",
+            "tag": "syslog",
+            "filter": {
+              "level": [
+                "ALL"
+              ]
+            }
+          }
+        ],
+        "target": [
+          {
+            "type": "elasticsearch",
+            "host": "192.168.100.111",
+            "port": "9200",
+            "index_name": "logger"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "name": "Hadoop_Cluster02",
+  "tags": ["hello-without"],
+   "poller":{
+        "targets":
+            [{"msg_type":"cntrl", "name":"sample_kafka_writer", "target":"sample_kafka_writer",  "cmd":"start", "mode":"frill", "type": "elasticsearch", "meta":{"host":"localhost", "port":"9092", "topic":"topic"}},
+{"msg_type":"cntrl", "name":"kafka-topic-test", "target":"sample_kafka_writer",  "cmd":"start", "mode":"frill", "type": "elasticsearch", "meta":{"host":"localhost", "port":"9092", "topic":"test"}}],
+        "plugins": [{"msg_type":"cntrl",  "name":"hadoopCluster" ,"target":"hadoop_cluster_poller", "cmd":"start", "mode":"frill", "targets":["sample_kafka_writer", "kafka-topic-test"], "interval":10, "tags":["red"], "enable":true, "meta":{"credentials":{"cluster_ip":"192.168.100.205","username":"mapr","password":"mapr","port":8443}}}]
+   },
+
+  "sub_template": [
+    {
+      "name": "ALL NODES",
+      "node_list": [
+        "compute01",
+        "compute02",
+        "compute03"
+      ],
+      "collectors": {
+        "enable": true,
+        "interval": "30",
+        "plugins": [
+          {
+            "name": "cpu",
+            "enable": true,
+            "interval": "30",
+            "tags": ["hello-within"],
+            "targets":["elasticsearch"]
+
+          }
+        ],
+        "targets": [
+          {
+            "name": "elasticsearch",
+            "type": "kafka",
+            "host": "192.168.101.12",
+            "port": "9200",
+            "topic" :["st1", "st2"],
+            "index": "all_nodes_matrix"
+          },
+          {
+            "name": "elasticsearch",
+            "type": "elasticsearch",
+            "host": "10.11.0.130",
+            "port": "9200",
+            "index": "all_nodes_matrix"
+          }
+        ]
+
+      },
+      "loggers": {
+        "enable": true,
+        "plugins": [
+          {
+            "name": "hadoop_mapr",
+            "targets":["elasticsearch"],
+            "tags": [],
+            "filter": {
+             "level": [
+                "WARNING"
+              ]
+            }
+          }
+        ],
+        "targets": [
+          {
+            "name": "elasticsearch",
+            "type": "kafka",
+            "host": "192.168.101.12",
+            "port": "9200",
+            "topic" :["st11", "st12"],
+            "index": "hadoop_mapr"
+          },
+          {
+            "name": "elasticsearch",
+            "type": "elasticsearch",
+            "host": "10.23.248.34",
+            "port": "9200",
+            "index": "hadoop_mapr"
+          }
+        ]
+      }
+    }
+  ]
+}
+                                

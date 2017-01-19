@@ -1,0 +1,1 @@
+/root/mysite/manage.py

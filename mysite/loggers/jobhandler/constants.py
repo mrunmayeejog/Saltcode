@@ -1,0 +1,12 @@
+SAMPLE_TEMPLATE_NAME = 'sample_profile.json'
+TEMPLATE_FILE = 'template.json'
+TAGS = 'tags'
+NODE_LIST = 'node_list'
+INTERNAL_SERVER_ERROR = 500
+BAD_REQUEST = 400
+JOB_POLLER = 'mapr_job'
+CLUSTER_POLLER = 'mapr_cluster'
+ALL_NODE_SUBTEMPLATE = "ALL NODES"
+LINUX_DYNAMIC = "linux_dynamic"
+LINUX_STATIC = "linux_static"
+MAPR_CLUSTER = "cluster"

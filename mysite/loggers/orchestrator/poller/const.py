@@ -1,0 +1,30 @@
+LLER_CONTROLLER = '../../poller/pcontroller.py'
+
+TARGETS = "targets"
+PLUGINS = "plugins"
+PLUGIN = "plugin"
+TARGET = "target"
+TARGETS = "targets"
+
+MSG_TYPE = "msg_type"
+CMD = "cmd"
+CNTRL = "cntrl"
+NAME = "name"
+START = "start"
+STOP = "stop"
+STOPALL = "stopall"
+STATE = "state"
+UPDATE = "update"
+RESUME = "resume"
+TEARDOWN = "teardown"
+TEARDOWNALL = "teardownall"
+CHECK_POINT = "check_point"
+STATE = "state"
+PLUGIN_TYPE = "plugin_type"
+PLUGIN_ID = "plugin_id"
+DEST_LIST = "dest_list"
+POLLER = "poller"
+
+#Worker type
+READER = "reader"
+WRITER = "writer"
