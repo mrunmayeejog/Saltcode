@@ -1,0 +1,74 @@
+{
+  "name": "Hadoop_Cluster01",
+  "tags": ["hello-without"],
+   "poller":{
+        "targets":[],
+        "plugins":[]
+   },
+
+  "sub_template": [
+    {
+      "name": "ALL NODES",
+      "node_list": [
+        "ubuntu-vm-2-VirtualBox"
+      ],
+      "collectors": {
+        "enabled":true,
+        "interval": "30",
+        "plugins": [
+          {
+            "name": "cpu",
+            "enabled": true,
+            "interval": "30",
+            "tag": ["hello-within"],
+            "targets":["write_elastic"]
+
+          }
+        ],
+        "targets": [
+          {
+            "name": "write_elastic",
+            "type": "elasticsearch",
+            "host": "10.23.235.131",
+            "port": "9200",
+            "index": "all_nodes_matrix"
+          }
+        ]
+
+      },
+      "loggers": {
+        "plugins": [
+        {
+            "type": "yarn_node_manager",
+            "tag": "node_mgr",
+            "filter": {
+                "level": [ "INFO", "WARNING" ]
+            }
+        },
+        {
+            "type": "yarn_resource_manager",
+            "tag": "reso_mgr",
+            "filter": {
+                "level": [ "ERROR" ]
+            }
+        },
+        {
+            "type": "syslog",
+            "tag": "syslog",
+            "filter": {
+                "level": [ "ALL" ]
+            }
+      }
+    ],
+    "target": [
+        {
+            "type": "elasticsearch",
+            "host": "10.23.235.131",
+            "port": "9200",
+            "index_name": "test"
+        }
+    ]
+  }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "apic_ip_addres": "10.81.1.12",
+  "credentials": {
+    "username": "admin",
+    "password": "maplelabs"
+  },
+  "interface": ["1/101/1/2", "1/101/1/41"],
+  "granularity": "5min",
+
+  "stats_family": [{
+    "family_name": "ingrTotal",
+    "family_sub_type": [
+      "bytesRate",
+      "pktsAvg"
+    ]
+  },
+  {
+    "family_name": "egrTotal",
+    "family_sub_type": [
+      "bytesRate",
+      "pktsAvg"
+    ]
+  },
+  {
+    "family_name": "ingrDropPkts",
+    "family_sub_type": [
+      "bufferRate",
+      "bufferPer"
+      ]
+  },
+  {
+    "family_name": "egrDropPkts",
+    "family_sub_type": [
+      "afdWredPer",
+      "bufferRate"
+    ]
+  }]
+}

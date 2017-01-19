@@ -1,0 +1,72 @@
+{  
+   "name":"hadoop_test_cluster",
+   "node_list":["compute023", "compute022"],
+   "tags":["global_tag1", "global_tag2"],
+   "collectors":{  
+        "interval":"30",
+        "target":[
+            {
+                "name":"write_elastic",
+                "options":{
+                            "Ip":"10.11.0.130",
+                            "Port":"9200",
+                            "Index":"Collectd"
+                 }
+            }
+        ],
+        "plugins":[
+            {
+                "Plugin":"cpu",
+                "Options":{
+                            "Interval":"14",
+                            "Tag": ["abc", "def"]
+                }
+            },
+            {
+                "Plugin":"memory",
+                "Options":{
+                            "Tag": ["uvw", "xyz"]
+                }
+            }
+        ]
+   },
+   "loggers": {
+        "plugins": [
+        {
+            "type": "yarn_node_manager",
+            "tag": "node_mgr",
+            "filter": {
+                "level": [ "INFO", "WARNING" ]
+            }
+        },
+        {
+            "type": "yarn_resource_manager",
+            "tag": "reso_mgr",
+            "filter": {
+                "level": [ "ERROR" ]
+            }
+        },
+        {
+            "type": "syslog",
+            "tag": "syslog",
+            "filter": {
+                "level": [ "ALL" ]
+            }
+      }
+    ],
+    "target": [
+        {
+            "type": "elasticsearch",
+            "host": "10.23.248.34",
+            "port": "9200"
+        }
+    ]
+  },
+   "poller":{
+        "targets":
+            [{"msg_type":"cntrl", "name":"kafka_writer", "target":"kpark",  "cmd":"start", "mode":"frill", "meta":{"kafka_client":"192.168.101.12:9092", "topic":"ptop1"}}], 
+        "plugins":
+            [{"msg_type":"cntrl",  "name":"hadoop1" ,"target":"poll", "cmd":"start", "mode":"frill", "targets":["kpark"], "interval":10, "tag":["red"],"meta":{}}]
+   }
+
+}

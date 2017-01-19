@@ -1,0 +1,96 @@
+{
+  "name": "Hadoop_Cluster01",
+  "tags": ["hello-without"],
+   "poller":{
+        "targets":
+            [{"msg_type":"cntrl", "name":"kafka_writer", "target":"kpark",  "cmd":"start", "mode":"frill", "meta":{"kafka_client":"192.168.101.12:9092", "topic":"ptop1"}}], 
+        "plugins":
+            [{"msg_type":"cntrl",  "name":"hadoop1" ,"target":"poll", "cmd":"start", "mode":"frill", "targets":["kpark"], "interval":10, "tag":["red"], "enable":true, "meta":{}}]
+   },
+
+  "sub_template": [
+    {
+      "name": "ALL NODES",
+      "node_list": [
+        "freerad4"
+      ],
+      "collectors": {
+        "enabled":true,
+        "interval": "30",
+        "plugins": [
+          {
+            "name": "cpu",
+            "enabled": true,
+            "interval": "30",
+            "tags": ["hello-within"],
+            "targets":["elasticsearch"]
+          },
+         { 
+            "name":"cpu_stats",
+            "enabled":true,
+            "interval":"15",
+            "targets":["elasticsearch"]
+         },
+         {
+            "name":"tcp_stats",
+            "enabled":true,
+            "interval":"16",
+            "targets":["elasticsearch"]
+         },
+         {
+            "name":"ram_usage",
+            "enabled":true,
+            "interval":"17",
+            "targets":["elasticsearch"]
+         },
+         {
+            "name":"disk_stat",
+            "enabled":true,
+            "interval":"15",
+            "targets":["elasticsearch"]
+         },
+         {
+            "name":"disk_usage",
+            "enabled":true,
+            "interval":"15",
+            "targets":["elasticsearch"]
+         }
+        ],
+        "targets": [
+          {
+            "name": "elasticsearch",
+            "type": "elasticsearch",
+            "host": "10.11.0.130",
+            "port": "9200",
+            "index": "all_nodes_matrix"
+          }
+        ]
+      },
+      "loggers": {
+        "enabled":true,
+        "interval": "60",
+        "plugins": [
+          {
+            "name": "hadoop_mapr",
+            "targets":["elasticsearch"],
+            "tag": [],
+            "filter": {
+              "level": [
+                "WARNING"
+              ]
+            }
+          }
+        ],
+        "targets": [
+          {
+            "name": "elasticsearch",
+            "type": "elasticsearch",
+            "host": "10.23.248.34",
+            "port": "9200",
+            "index": "hadoop_mapr"
+          }
+        ]
+      }
+    }
+  ]
+}

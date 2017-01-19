@@ -1,0 +1,20 @@
+cpustats            total_physical_cpus:counter:U:U, total_cores:counter:U:U, total_logical_cpus:counter:U:U, hyperthreading:counter:U:U
+avg_request_queue           value:GAUGE:0:U
+avg_request_size            value:GAUGE:0:U
+avg_service_time            value:GAUGE:0:U
+avg_wait_time               value:GAUGE:0:U
+blocks                      value:GAUGE:0:U
+blocks_per_second           value:GAUGE:0:U
+bytes_per_second            value:GAUGE:0:U
+transfers_per_second        value:GAUGE:0:U
+per_second                  value:GAUGE:0:U
+requests_merged_per_second  value:GAUGE:0:U
+sectors_per_second          value:GAUGE:0:U
+diskusage            size:absolute:U:U, usage:absolute:U:U
+disk_iostat       read_iops:GAUGE:0:U, write_iops:GAUGE:0:U, read_throughput:GAUGE:0:U, write_throughput:GAUGE:0:U, read_bytes:GAUGE:0:U, write_bytes:GAUGE:0:U
+disk_diskstat   read_count:absolute:0:U, write_count:absolute:0:U, read_bytes:absolute:0:U, write_bytes:absolute:0:U
+tcpstats            readbufflow:absolute:0:U, writebufflow:absolute:0:U, readbuffmedium:absolute:0:U, writebuffmedium:absolute:0:U, readbuffhigh:absolute:0:U, writebuffhigh:absolute:0:U, retransmit:absolute:0:U, reset_sent:absolute:0:U, reset_recv:absolute:0:U
+nicstats               mtu:counter:U:U, rx_data_counter:counter:U:U, tx_data_counter:counter:U:U, rx_drop:counter:U:U, tx_drop:counter:U:U, read:counter:0:U, write:counter:0:U
+nicstataggregate          rx_data_counter:counter:U:U, tx_data_counter:counter:U:U, rx_drop:counter:U:U, tx_drop:counter:U:U, read:counter:0:U, write:counter:0:U
+ramusage             ram_total:GAUGE:0:U, ram_percent:GAUGE:0:U
+

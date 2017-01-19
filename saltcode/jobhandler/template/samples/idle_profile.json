@@ -1,0 +1,114 @@
+{
+  "name": "Hadoop_Cluster01",
+  "tags": [
+    
+  ],
+  "poller": {
+    "plugins": [
+      {
+        "type": "hadoop_cluster",
+        "name": "hadoop_cluster01",
+        "plugin_paramaters": {
+          "credentials": {
+            "host": "10.11.0.192",
+            "username": "mapr",
+            "password": "mapr",
+            "port": "8443"
+          }
+        },
+        "interval": "15mins",
+        "enable": true
+      },
+      {
+        "type": "hadoop_job",
+        "name": "job_poller",
+        "plugin_paramaters": {
+          "job_names": [
+            
+          ],
+          "credentials": {
+            "host": "10.11.0.192",
+            "port": "8088"
+          }
+        },
+        "interval": "15mins",
+        "enable": true
+      }
+    ],
+    "target": [
+      {
+        "type": "elasticsearch",
+        "host": "10.23.248.34",
+        "port": "9200"
+      },
+      {
+        "type": "kafka",
+        "host": "10.0.0.1",
+        "port": 9200,
+        "topic": "hadoop_job"
+      }
+    ]
+  },
+  "sub_template": [
+    {
+      "name": "ALL NODES",
+      "node_list": [
+        'compute01',
+        'compute02',
+        'compute03'
+      ],
+      "collectors": {
+        "interval": "30",
+        "plugins": [
+          {
+            "name": "linux_static",
+            "enabled": true,
+            "interval": "5mins",
+            "tag": [
+              
+            ],
+            
+          },
+          {
+            "name": "linux_dynamic",
+            "enabled": false,
+            "interval": "30sec",
+            "tag": [
+              
+            ],
+          }
+        ],
+        "target": [
+          {
+            "type": "elasticsearch",
+            "host": "10.11.0.130",
+            "port": "9200",
+            "index": "all_nodes_matrix"
+          }
+        ],
+        
+      },
+      "loggers": {
+        "plugins": [
+          {
+            "name": "hadoop_mapr",
+            "tag": [],
+            "filter": {
+              "level": [
+                "WARNING"
+              ]
+            }
+          }
+        ],
+        "target": [
+          {
+            "type": "elasticsearch",
+            "host": "10.23.248.34",
+            "port": "9200",
+            "index": "hadoop_mapr"
+          }
+        ]
+      }
+    }
+  ]
+}
